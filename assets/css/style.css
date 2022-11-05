@@ -1,23 +1,67 @@
 /*  Global elements  */
 *{
-    margin: 1vh;
-
+    font-family:Arial, Helvetica, sans-serif;
 }
+
 header{
-    margin: 0 10vh;
+    margin: 2vh 10vh;
     display: flex;
     justify-content: space-between;
 }
+
 header a{
     text-decoration: none;
     color: black;
 }
 
-/*  Class Styles  */
+main{
+    display: flex;
+    justify-content: center;
+}
+
+h1{
+    font-size: 2.5vw;
+    font-weight: 900;
+    margin: 0;
+}
+
+
+/*  Id Specific Styles  */
+#start-button{
+    background-color:rgb(207, 27, 207);
+    color: white;
+    border-radius: 5px;
+    padding: .5vh .5vw;
+}
+
+/*  Class Mods  */
+
+.starting-card{
+    display: flex;
+    height: 80%;
+    text-align: center;
+    font-weight: 500;
+    flex-direction: column;
+    align-items: center;
+    width: 40%;
+}
+
+.questions-card{
+    display: none;
+    font-weight: 500;
+    flex-direction: column;
+    align-items: center;
+    width: 40%;
+}
 
 
 /* Psuedo Class Elements  */
 header a:hover{
     text-decoration: underline;
     color: red;
+}
+
+#start-button:hover{
+    background-color:rgb(129, 39, 129);
+    color: white;
 }
