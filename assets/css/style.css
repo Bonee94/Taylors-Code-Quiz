@@ -1,0 +1,23 @@
+/*  Global elements  */
+*{
+    margin: 1vh;
+
+}
+header{
+    margin: 0 10vh;
+    display: flex;
+    justify-content: space-between;
+}
+header a{
+    text-decoration: none;
+    color: black;
+}
+
+/*  Class Styles  */
+
+
+/* Psuedo Class Elements  */
+header a:hover{
+    text-decoration: underline;
+    color: red;
+}
