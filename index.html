@@ -8,7 +8,24 @@
     <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 <body>
-    
+    <header>
+        <span id="highscores">View Highscores</span>
+        <span id="time">Time:</span>
+    </header>
+
+    <main>
+        <section id="starting-screen main-card">
+            <h1>Coding Quiz Challenge</h1>
+            <p>Try to answer the following code-related questionswithin the tume limit. Keep in mind that inccorect answers will penalize your score/time by ten seconds!</p>
+
+            <button id="start-button">Start Quiz</button>
+        </section>
+        <section id="questions-screen main-card">
+            <h1 id="questions"></h1>
+            <ul id="selectable-answers"></ul>
+            <span id="right-wrong-display"></span>
+        </section>
+    </main>
 
 
     <script src="./assets/js/script.js"></script>
