@@ -56,16 +56,21 @@ function startGame() {
     writeQuestion()
     writeOptions();
 
-
 }
 startingButton.addEventListener("click", startGame);
 
+function nextQuestion() {
+    startingScreen.style.display = "none";
+    questionsScreen.style.display = "flex";
+
+    writeQuestion()
+    changeOptions()
+}
 
 function writeQuestion() {
     var questionHeader = document.getElementById('questions')
     var currentQuestion = questionMapped[allStart]
-    questionHeader.append(currentQuestion)
-
+    questionHeader.textContent = currentQuestion
     return
 }
 
@@ -84,17 +89,26 @@ function writeOptions() {
         var liEL = document.createElement('li');
         var buttonOptions = document.createElement('button');
         buttonOptions.textContent = arrayToUse[i];
-        buttonOptions.setAttribute("id", 'this-is-button-' + [i + 1])
-        liEL.appendChild(buttonOptions)
+        buttonOptions.setAttribute("id", 'this-is-button-' + [i + 1]);
+        liEL.append(buttonOptions);
         olEl.append(liEL);
     }
 
-    answerSelect()
+    answerSelection();
 
     return
 };
 
-function answerSelect(answerSelect) {
+function changeOptions() {
+    var arrayToUse = optionsMapped[allStart];
+
+    for (let i = 0; i < arrayToUse.length; i++) {
+        var buttonOptions = document.getElementById('this-is-button-' + [i + 1])
+        buttonOptions.textContent = arrayToUse[i];
+    }
+}
+
+function answerSelection(answerSelect) {
     var answerSelect = "";
     var answer1 = document.getElementById("this-is-button-1");
     var answer2 = document.getElementById('this-is-button-2');
@@ -146,6 +160,9 @@ function answerCheck() {
     console.log(answerSelect)
     if (currentAnswer == answerSelect) {
         console.log("it worked")
+        allStart = allStart + 1;
+        console.log(allStart);
+        nextQuestion()
     } else {
         //Put in function to start next question and delete 10 seconds off time
         alert("Wrong Answer")
