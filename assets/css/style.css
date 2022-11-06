@@ -4,6 +4,7 @@
 }
 
 header{
+    font-size: 1.7vw;
     margin: 2vh 10vh;
     display: flex;
     justify-content: space-between;
