@@ -3,10 +3,8 @@ var startingScreen = document.getElementById('starting-screen');
 
 
 questionsScreen.style.display = "none";
-//startingScreen.style.display = "none";
-//questionsCard.style.display = "flex";
 
-const questionsArray = [
+const problemsArray = [
     // Question 1    
     {
         answer: "Alerts",
@@ -14,7 +12,7 @@ const questionsArray = [
         question: "Commonly used data types DO NOT include: ",
     },
     // Question 2
-    { 
+    {
         answer: "Parentheses",
         options: ["Quotes", "Curly Brackets", "Parentheses", "Square Brackets"],
         question: "The condition in an if/else statement is enclosed within _____.",
@@ -38,5 +36,45 @@ const questionsArray = [
         question: "A very useful tool used during development and debugging for printing content to the debugger is: ",
     },
 ]
+console.log(problemsArray)
 
-console.log(questionsArray)
+var answersMapped = problemsArray.map(obj => obj.answer)
+var optionsMapped = problemsArray.map(obj => obj.options)
+console.log(answersMapped[3])
+console.log(optionsMapped[4])
+
+function startGame() {
+
+    startingScreen.style.display = "none";
+    questionsScreen.style.display = "flex";
+
+    writeOptions();
+
+
+
+
+
+}
+document.addEventListener("click", startGame);
+
+
+
+function writeOptions() {
+    console.log('Wrote Options')
+    var olEl = document.getElementById("selectable-answers");
+    var questionSpot = "";
+
+//    Need to be able to change this array number depending on question
+    var arrayToUse = optionsMapped[0];
+    
+    console.log(optionsMapped[0][1])
+    console.log(arrayToUse)
+
+        for (let i = 0; i < arrayToUse.length; i++) {
+            var liEL = document.createElement('li',);
+            liEL.textContent = arrayToUse[i];
+            olEl.append(liEL);
+
+            console.log("for loop");
+        }
+};
