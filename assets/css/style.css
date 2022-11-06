@@ -22,7 +22,14 @@ main{
 }
 
 h1{
-    font-size: 2.5vw;
+    font-size: 2.8vw;
+    font-weight: 900;
+    margin: 0;
+    text-decoration: underline dashed rgb(207, 27, 207);
+}
+
+h2{
+    font-size: 2vw;
     font-weight: 900;
     margin: 0;
 }
@@ -31,6 +38,7 @@ h1{
 
 .starting-card{
     display: flex;
+    font-size: 1.6vw;
     text-align: center;
     font-weight: 500;
     flex-direction: column;
@@ -42,7 +50,7 @@ h1{
     display: flex;
     font-weight: 500;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     width: 40%;
 }
 

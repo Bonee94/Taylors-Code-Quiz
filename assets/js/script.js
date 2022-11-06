@@ -1,7 +1,8 @@
+//Global Variables
 var questionsScreen = document.getElementById('questions-screen');
 var startingScreen = document.getElementById('starting-screen');
 var startingButton = document.getElementById('start-button')
-
+var allStart = 0;
 
 questionsScreen.style.display = "none";
 
@@ -56,17 +57,16 @@ function startGame() {
     writeOptions();
 
 
-
-
-
 }
 startingButton.addEventListener("click", startGame);
 
 
 function writeQuestion() {
     var questionHeader = document.getElementById('questions')
-    var currentQuestion = questionMapped[0]
+    var currentQuestion = questionMapped[allStart]
     questionHeader.append(currentQuestion)
+
+    return
 }
 
 
@@ -75,7 +75,7 @@ function writeOptions() {
     var olEl = document.getElementById("selectable-answers");
 
     //    Need to be able to change this array number depending on question
-    var arrayToUse = optionsMapped[0];
+    var arrayToUse = optionsMapped[allStart];
 
     console.log(optionsMapped[0][1])
     console.log(arrayToUse)
@@ -84,11 +84,71 @@ function writeOptions() {
         var liEL = document.createElement('li');
         var buttonOptions = document.createElement('button');
         buttonOptions.textContent = arrayToUse[i];
+        buttonOptions.setAttribute("id", 'this-is-button-' + [i + 1])
         liEL.appendChild(buttonOptions)
         olEl.append(liEL);
-
-        console.log("for loop");
     }
+
+    answerSelect()
 
     return
 };
+
+function answerSelect(answerSelect) {
+    var answerSelect = "";
+    var answer1 = document.getElementById("this-is-button-1");
+    var answer2 = document.getElementById('this-is-button-2');
+    var answer3 = document.getElementById('this-is-button-3');
+    var answer4 = document.getElementById('this-is-button-4');
+    console.log(answer1)
+    answer1.addEventListener("click", answerChosen1);
+    answer2.addEventListener('click', answerChosen2);
+    answer3.addEventListener('click', answerChosen3);
+    answer4.addEventListener('click', answerChosen4);
+
+    return answerSelect
+}
+
+function answerChosen1() {
+    answerSelect = optionsMapped[allStart][0]
+    console.log('1 got clicked')
+
+    answerCheck()
+    return answerSelect
+}
+
+function answerChosen2() {
+    answerSelect = optionsMapped[allStart][1]
+    optionsMapped[allStart][1]
+
+    answerCheck()
+    return answerSelect
+}
+
+function answerChosen3() {
+    answerSelect = optionsMapped[allStart][2]
+    optionsMapped[allStart][2]
+
+    answerCheck()
+    return answerSelect
+}
+
+function answerChosen4() {
+    answerSelect = optionsMapped[allStart][3]
+    optionsMapped[allStart][3]
+
+    answerCheck()
+    return answerSelect
+}
+
+function answerCheck() {
+    var currentAnswer = answersMapped[allStart]
+    console.log(answerSelect)
+    if (currentAnswer == answerSelect) {
+        console.log("it worked")
+    } else {
+        //Put in function to start next question and delete 10 seconds off time
+        alert("Wrong Answer")
+    }
+
+}
