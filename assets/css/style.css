@@ -18,8 +18,8 @@ header a{
 main{
     display: flex;
     justify-content: center;
-    height: 80vh;
-    align-items: center;
+    height: 70vh;
+    margin-top: 10vh;
 }
 
 h1{
@@ -30,7 +30,7 @@ h1{
 }
 
 h2{
-    font-size: 2vw;
+    font-size: 1.7vw;
     font-weight: 900;
     margin: 0;
 }
@@ -67,20 +67,31 @@ h2{
 
 /*  Id Specific Styles  */
 #start-button{
+    font-size: 1.5vw;
     background-color:rgb(207, 27, 207);
     color: white;
     border-radius: 5px;
-    padding: .5vh .5vw;
+    padding: .5vh .5vh;
 }
 
 #selectable-answers li button{
+    position: relative;
+    bottom: .5vw;
     background-color:rgb(207, 27, 207);
     width: 120%;
     color: white;
     border-radius: 5px;
-    padding: .5vh .5vw;
-    margin: .3vh .3vh;
+    padding: .2v;
     font-size: 1.3vw;
+}
+
+#right-wrong-display{
+    font-family: 'Times New Roman', Times, serif;
+    font-style: italic;
+    color: #4e4c4c;
+    padding-right: 20vw;
+    text-decoration: overline solid .5vh;
+    font-size: 2.3vw;
 }
 
 

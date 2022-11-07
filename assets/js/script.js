@@ -3,6 +3,7 @@ var questionsScreen = document.getElementById('questions-screen');
 var startingScreen = document.getElementById('starting-screen');
 var highscoresScreen = document.getElementById('highscores-screen');
 var startingButton = document.getElementById('start-button')
+var answerRightWrong = document.getElementById('right-wrong-display');
 var timerId = document.getElementById('time');
 var allStart = 0;
 var answerSelect = "";
@@ -78,11 +79,11 @@ var timerSet = function () {
 
     start--;
 
-    if (start <= -1) {
+    if (start == 0 || start <= -1) {
         clearInterval(setTimer);
-        timerId.textContent = "No time Remaining"
+        timerId.textContent = "No set timer Remaining"
         allStart = 10;
-        highScores()
+        highScores(0)
     };
 
     return
@@ -195,56 +196,75 @@ function answerChosen4() {
     return
 }
 
+// This section writes the gray right/wrong display under the options
 
-//Checks passsed on answer for wrong or right
+function rightWrongTimer(name) {
+    rWTimer = setTimeout(name, 600)
+    console.log(this)
+};
+
+function answerGrayClear() {
+    answerRightWrong.innerHTML = null;
+    console.log(this)
+};
+
+
+//Checks passsed on answer for wrong or right and decides to start next question
+//or move to highscores
 function answerCheck(answerSelect) {
     var currentAnswer = answersMapped[allStart]
     console.log(answerSelect)
 
-    if (allStart < 4) {
-        if (currentAnswer == answerSelect) {
-            allStart = allStart + 1;
-            finalScore = finalScore + 22;
-            console.log(finalScore)
+    if (currentAnswer == answerSelect) {
+        allStart = allStart + 1;
+        answerRightWrong.innerHTML = "Correct!"
+        rightWrongTimer(answerGrayClear);
+        finalScore = finalScore + 22;
+        console.log(finalScore)
+        if (allStart <= 4) {
             nextQuestion()
         } else {
-            // Actions to start next question and delete 10 seconds off time
-            allStart = allStart + 1;
-
-            clearInterval(setTimer);
-            timerInterval();
-
-            timerId.innerHTML = "Time: " + (start - 9);
-            // If last question has less then 10 seconds left it will stop timer on wrong answer
-            if (start <= 9) {
-                clearInterval(setTimer);
-                timerId.textContent = "No time Remaining"
-            } else {
-                start = start - 10;
-                nextQuestion();
-            }
-
-
+            // This is splitting the "Time: (num)" into an array and then 
+            // I'm calling on the [1]index and parsethe number from the string to 
+            // create an addable interger and passing that value to highscore() Func
+            var timeRemaining = timerId.innerHTML.split(' ');
+            var timeRemainingToScore = timeRemaining[1]
+            timeRemainingToScore = parseInt(timeRemainingToScore)
+            highScores(timeRemainingToScore)
+            console.log(timeRemainingToScore)
         }
-
-
     } else {
-        if (start = 0) {
-            timerId.textContent = "No time Remaining"
-        }
+        // Actions to start next question and delete 10 seconds off time
+        allStart = allStart + 1;
+        answerRightWrong.innerHTML = "Wrong"
+        rightWrongTimer(answerGrayClear);
         clearInterval(setTimer);
+        timerInterval();
 
-        // This is splitting the "Time: (num)" into an array and then 
-        // I'm calling on the [1]index and parsethe number from the string to 
-        // create an addable interger and passing that value to highscore() Func
-
-        var timeRemaining = timerId.innerHTML.split(' ');
-        var timeRemainingToScore = timeRemaining[1]
-        timeRemainingToScore = parseInt(timeRemainingToScore)
-        highScores(timeRemainingToScore)
-        console.log(timeRemainingToScore)
+        timerId.innerHTML = "Time: " + (start - 9);
+        // If last question has less then 10 seconds left it will stop timer on wrong answer
+        if (start <= 9) {
+            clearInterval(setTimer);
+            timerId.textContent = "No time Remaining"
+            highScores(0)
+        } else {
+            start = start - 10;
+            if (allStart <= 4) {
+                nextQuestion()
+            } else {
+                // This is splitting the "Time: (num)" into an array and then 
+                // I'm calling on the [1]index and parsethe number from the string to 
+                // create an addable interger and passing that value to highscore() Func
+                var timeRemaining = timerId.innerHTML.split(' ');
+                var timeRemainingToScore = timeRemaining[1]
+                timeRemainingToScore = parseInt(timeRemainingToScore)
+                highScores(timeRemainingToScore)
+                console.log(timeRemainingToScore)
+            }
+        }
     }
 }
+
 
 
 // This is the highscores card Functions and Variables
@@ -252,7 +272,6 @@ var finalScoreLocation = document.getElementById('finalScoreWritten');
 
 function highScores(timeRemainingToScore) {
     clearInterval(setTimer);
-    console.log(start)
     // Change Displays
     startingScreen.style.display = "none";
     questionsScreen.style.display = "none";
