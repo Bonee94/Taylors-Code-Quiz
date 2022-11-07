@@ -1,10 +1,12 @@
 //Global Variables
 var questionsScreen = document.getElementById('questions-screen');
 var startingScreen = document.getElementById('starting-screen');
+var highscoresScreen = document.getElementById('highscores-screen');
 var startingButton = document.getElementById('start-button')
 var timerId = document.getElementById('time');
 var allStart = 0;
 var answerSelect = "";
+var finalScore = 0;
 
 
 questionsScreen.style.display = "none";
@@ -41,7 +43,7 @@ const problemsArray = [
         question: "5. A very useful tool used during development and debugging for printing content to the debugger is: ",
     },
 ]
-console.log('Problems Array:', problemsArray)
+console.table(problemsArray)
 
 //This logic is selecting the paticular objects within the array to make available
 var answersMapped = problemsArray.map(obj => obj.answer)
@@ -57,6 +59,7 @@ function startGame() {
 
     startingScreen.style.display = "none";
     questionsScreen.style.display = "flex";
+    highscoresScreen.style.display = "none";
 
     writeQuestion()
     writeOptions();
@@ -78,6 +81,8 @@ var timerSet = function () {
     if (start <= -1) {
         clearInterval(setTimer);
         timerId.textContent = "No time Remaining"
+        allStart = 10;
+        highScores()
     };
 
     return
@@ -160,7 +165,7 @@ function answerChosen1() {
     console.log('1 got clicked')
 
     answerCheck(answerSelect)
-    return 
+    return
 }
 
 // If button 2 was pressed; sends to be checked
@@ -169,7 +174,7 @@ function answerChosen2() {
     optionsMapped[allStart][1]
 
     answerCheck(answerSelect)
-    return 
+    return
 }
 
 // If button 3 was pressed; sends to be checked
@@ -178,7 +183,7 @@ function answerChosen3() {
     optionsMapped[allStart][2]
 
     answerCheck(answerSelect)
-    return 
+    return
 }
 
 // If button 4 was pressed; sends to be checked
@@ -187,7 +192,7 @@ function answerChosen4() {
     optionsMapped[allStart][3]
 
     answerCheck(answerSelect)
-    return 
+    return
 }
 
 
@@ -195,34 +200,65 @@ function answerChosen4() {
 function answerCheck(answerSelect) {
     var currentAnswer = answersMapped[allStart]
     console.log(answerSelect)
-    if (currentAnswer == answerSelect) {
-        console.log("it worked")
-        allStart = allStart + 1;
-        console.log(allStart);
-        console.log(answerSelect);
-        nextQuestion()
-    } else {
-        // Actions to start next question and delete 10 seconds off time
-        allStart = allStart + 1;
 
-        clearInterval(setTimer);
-        timerInterval();
-
-        timerId.innerHTML = "Time: " + (start - 9);
-        // If last question has less then 10 seconds left it will stop timer on wrong answer
-        if (start <= 9) {
-            clearInterval(setTimer);
-            timerId.textContent = "No time Remaining"
+    if (allStart < 4) {
+        if (currentAnswer == answerSelect) {
+            allStart = allStart + 1;
+            finalScore = finalScore + 22;
+            console.log(finalScore)
+            nextQuestion()
         } else {
-            start = start - 10;
-            nextQuestion();
+            // Actions to start next question and delete 10 seconds off time
+            allStart = allStart + 1;
+
+            clearInterval(setTimer);
+            timerInterval();
+
+            timerId.innerHTML = "Time: " + (start - 9);
+            // If last question has less then 10 seconds left it will stop timer on wrong answer
+            if (start <= 9) {
+                clearInterval(setTimer);
+                timerId.textContent = "No time Remaining"
+            } else {
+                start = start - 10;
+                nextQuestion();
+            }
+
+
         }
 
 
-    }
+    } else {
+        if (start = 0) {
+            timerId.textContent = "No time Remaining"
+        }
+        clearInterval(setTimer);
 
-    return
+        // This is splitting the "Time: (num)" into an array and then 
+        // I'm calling on the [1]index and parsethe number from the string to 
+        // create an addable interger and passing that value to highscore() Func
+
+        var timeRemaining = timerId.innerHTML.split(' ');
+        var timeRemainingToScore = timeRemaining[1]
+        timeRemainingToScore = parseInt(timeRemainingToScore)
+        highScores(timeRemainingToScore)
+        console.log(timeRemainingToScore)
+    }
 }
 
 
-highScores
+// This is the highscores card Functions and Variables
+var finalScoreLocation = document.getElementById('finalScoreWritten');
+
+function highScores(timeRemainingToScore) {
+    clearInterval(setTimer);
+    console.log(start)
+    // Change Displays
+    startingScreen.style.display = "none";
+    questionsScreen.style.display = "none";
+    highscoresScreen.style.display = "flex";
+    // Printing Score
+    finalScoreLocation.textContent = "Your final score is " + (finalScore + timeRemainingToScore);
+
+
+}
