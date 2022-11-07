@@ -8,6 +8,10 @@ var timerId = document.getElementById('time');
 var allStart = 0;
 var answerSelect = "";
 var finalScore = 0;
+var highScoresArray = [];
+var highscoreInput = document.getElementById('highscore-list');
+var highscoreOL = document.getElementById('highscore-ul');
+var hsSubmit = document.querySelector('#enter-initials-submission');
 
 
 questionsScreen.style.display = "none";
@@ -279,5 +283,73 @@ function highScores(timeRemainingToScore) {
     // Printing Score
     finalScoreLocation.textContent = "Your final score is " + (finalScore + timeRemainingToScore);
 
-
+    highScoresSubmission();
 }
+
+// For initials submission form
+highScoresSubmission();
+
+//Writes button and checks local storage for previous scores
+function highScoresSubmission() {
+    var buttonEl = document.createElement('button');
+
+    buttonEl.textContent = "Submit"
+    hsSubmit.appendChild(buttonEl)
+    gettingScores();
+};
+
+
+
+// This on submission stores the new score and renders the new list
+hsSubmit.addEventListener("submit", function (event) {
+    event.preventDefault();
+    var currentScore = highscoreInput.value;
+    if (currentScore === null || currentScore === "") {
+        return
+    } else {
+        highScoresArray.push(currentScore)
+    }
+
+    highscoreInput.value = "";
+
+    storeHS(highScoresArray)
+    gettingScores()
+});
+
+// Function to write to local storage
+function storeHS() {
+    localStorage.setItem("highscores", JSON.stringify(highScoresArray));
+};
+
+
+// Function to render the list 
+function renderHS(highScoresArray) {
+    highscoreOL.innerHTML = "";
+    console.log(highScoresArray)
+
+    for (var i = 0; i < highScoresArray.length; i++) {
+        var printScore = highScoresArray[i];
+        var liEL = document.createElement('li');
+
+        liEL.setAttribute("data-index", i);
+
+        liEL.innerHTML = printScore;
+        highscoreOL.append(liEL);
+
+        console.log(highScoresArray)
+    }
+};
+
+
+// Function that get stored scores and send them to be rendered to the page
+function gettingScores() {
+    var storedArray = JSON.parse(localStorage.getItem("highscores"));
+
+    if (storedArray !== null) {
+        highScoresArray = storedArray;
+    };
+    console.log(highScoresArray)
+
+    renderHS(highScoresArray)
+}
+

@@ -18,7 +18,7 @@ header a{
 main{
     display: flex;
     justify-content: center;
-    height: 70vh;
+    height: 80%;
     margin-top: 10vh;
 }
 
@@ -38,7 +38,7 @@ h2{
 /*  Class Mods  */
 
 .starting-card{
-    display: flex;
+    display: none;
     font-size: 1.6vw;
     text-align: center;
     font-weight: 500;
@@ -56,7 +56,7 @@ h2{
 }
 
 .highscores-card{
-    display: none;
+    display: flex;
     font-size: 1.6vw;
     font-weight: 600;
     flex-direction: column;
