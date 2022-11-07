@@ -59,6 +59,12 @@ console.log("Q:", questionMapped[3])
 console.log("A:", answersMapped[3])
 console.log("Options:", optionsMapped[3])
 
+//Clears everything for the game to restart
+function clearGame() {
+    window.location.reload();
+}
+
+
 //Begins the game
 function startGame() {
 
@@ -273,6 +279,7 @@ function answerCheck(answerSelect) {
 
 // This is the highscores card Functions and Variables
 var finalScoreLocation = document.getElementById('finalScoreWritten');
+var completedScore = 0;
 
 function highScores(timeRemainingToScore) {
     clearInterval(setTimer);
@@ -281,21 +288,29 @@ function highScores(timeRemainingToScore) {
     questionsScreen.style.display = "none";
     highscoresScreen.style.display = "flex";
     // Printing Score
-    finalScoreLocation.textContent = "Your final score is " + (finalScore + timeRemainingToScore);
+    completedScore = (finalScore + timeRemainingToScore);
+    finalScoreLocation.textContent = "Your final score is " + completedScore;
 
     highScoresSubmission();
 }
 
 // For initials submission form
-highScoresSubmission();
 
 //Writes button and checks local storage for previous scores
 function highScoresSubmission() {
     var buttonEl = document.createElement('button');
+    var startAgain = document.getElementById('start-again');
+    var startAgainButton = document.createElement('button')
 
-    buttonEl.textContent = "Submit"
-    hsSubmit.appendChild(buttonEl)
+    startAgainButton.classList.add('play-again-button');
+    startAgainButton.textContent = "Play Again";
+    startAgain.appendChild(startAgainButton);
+
+    buttonEl.classList.add('initial-submit-button');
+    buttonEl.textContent = "Submit";
+    hsSubmit.appendChild(buttonEl);
     gettingScores();
+    startAgainButton.addEventListener("click", clearGame);
 };
 
 
@@ -307,7 +322,7 @@ hsSubmit.addEventListener("submit", function (event) {
     if (currentScore === null || currentScore === "") {
         return
     } else {
-        highScoresArray.push(currentScore)
+        highScoresArray.push(currentScore + ' - Score: ' + completedScore)
     }
 
     highscoreInput.value = "";
