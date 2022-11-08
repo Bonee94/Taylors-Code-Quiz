@@ -30,4 +30,4 @@ THEN I can save my initials and my score
 ![](./assets/images/Application%20Picture.png)
 
 ## Deployed URL
-* 
+* https://bonee94.github.io/Taylors-Code-Quiz/
