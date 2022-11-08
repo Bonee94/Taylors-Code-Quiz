@@ -82,7 +82,30 @@ h2{
     padding: .5vh .5vh;
 }
 
+.highscores-view-hdr{
+    font-size: 4vw;
+    font-weight: 900;
+    margin: 0;
+    text-decoration: underline dashed rgb(207, 27, 207);
+
+}
+
+.highscores-view{
+    display: none;
+    flex-direction: column;
+    align-items: center;
+}
+
 /*  Id Specific Styles  */
+#highscore-ul-view{
+    color: black;
+}
+
+@keyframes fadeIn{
+    0%{ opacity: 0; };
+    100%{ opacity: 1; ;}
+}
+
 #start-button{
     font-size: 1.5vw;
     background-color:rgb(207, 27, 207);
@@ -114,6 +137,13 @@ h2{
 #start-again{
     font-size: 2.9vw;
 }
+
+#play-game-from-hs{
+    font-size: 1.5vw;
+    background-color:rgb(207, 27, 207);
+    color: white;
+    border-radius: 5px;
+    padding: .5vh .5vh;}
 
 
 /* Psuedo Class Elements  */

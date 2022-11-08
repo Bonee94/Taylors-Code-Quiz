@@ -4,6 +4,7 @@ var startingScreen = document.getElementById('starting-screen');
 var highscoresScreen = document.getElementById('highscores-screen');
 var startingButton = document.getElementById('start-button')
 var answerRightWrong = document.getElementById('right-wrong-display');
+var viewHighscores = document.getElementById('highscores')
 var timerId = document.getElementById('time');
 var allStart = 0;
 var answerSelect = "";
@@ -11,8 +12,36 @@ var finalScore = 0;
 var highScoresArray = [];
 var highscoreInput = document.getElementById('highscore-list');
 var highscoreOL = document.getElementById('highscore-ul');
+var highscoreUlView = document.getElementById('highscore-ul-view');
+var highscoreViewHdr = document.getElementById("highscores-view-hdr")
+var highscoreViewScreen = document.getElementById("highscores-view-id")
 var hsSubmit = document.querySelector('#enter-initials-submission');
+var backToGame = document.getElementById('play-game-from-hs');
 
+function init() {
+    startingScreen.style.display = "flex";
+    questionsScreen.style.display = "none";
+    highscoresScreen.style.display = "none";
+    highscoreViewScreen.style.display = "none";
+}
+init()
+function changeToHighscore() {
+
+    clearInterval(setTimer);
+    // Change Displays
+    startingScreen.style.display = "none";
+    questionsScreen.style.display = "none";
+    highscoresScreen.style.display = "none";
+    highscoreViewScreen.style.display = "flex";
+
+    highscoreViewHdr.textContent = "Highscores";
+
+    gettingScoresView()
+
+    backToGame.addEventListener("click", clearGame);
+}
+
+viewHighscores.addEventListener('click', changeToHighscore)
 
 questionsScreen.style.display = "none";
 //Array of objects for referencing
@@ -71,6 +100,7 @@ function startGame() {
     startingScreen.style.display = "none";
     questionsScreen.style.display = "flex";
     highscoresScreen.style.display = "none";
+    highscoreViewScreen.style.display = "none";
 
     writeQuestion()
     writeOptions();
@@ -109,6 +139,7 @@ function timerInterval() {
 function nextQuestion() {
     startingScreen.style.display = "none";
     questionsScreen.style.display = "flex";
+    highscoreViewScreen.style.display = "none";
 
     writeQuestion()
     changeOptions()
@@ -287,6 +318,7 @@ function highScores(timeRemainingToScore) {
     startingScreen.style.display = "none";
     questionsScreen.style.display = "none";
     highscoresScreen.style.display = "flex";
+    highscoreViewScreen.style.display = "none";
     // Printing Score
     completedScore = (finalScore + timeRemainingToScore);
     finalScoreLocation.textContent = "Your final score is " + completedScore;
@@ -337,7 +369,7 @@ function storeHS() {
 };
 
 
-// Function to render the list 
+// Function to render the list game end
 function renderHS(highScoresArray) {
     highscoreOL.innerHTML = "";
     console.log(highScoresArray)
@@ -350,6 +382,24 @@ function renderHS(highScoresArray) {
 
         liEL.innerHTML = printScore;
         highscoreOL.append(liEL);
+
+        console.log(highScoresArray)
+    }
+};
+
+// Function to render the list highscore view
+function renderHSView(highScoresArray) {
+    highscoreUlView.innerHTML = "";
+    console.log(highScoresArray)
+
+    for (var i = 0; i < highScoresArray.length; i++) {
+        var printScore = highScoresArray[i];
+        var liEL = document.createElement('li');
+
+        liEL.setAttribute("data-index", i);
+
+        liEL.innerHTML = printScore;
+        highscoreUlView.append(liEL);
 
         console.log(highScoresArray)
     }
@@ -368,3 +418,15 @@ function gettingScores() {
     renderHS(highScoresArray)
 }
 
+
+// Function that get stored scores and send them to be rendered to the page for highscore view
+function gettingScoresView() {
+    var storedArray = JSON.parse(localStorage.getItem("highscores"));
+
+    if (storedArray !== null) {
+        highScoresArray = storedArray;
+    };
+    console.log(highScoresArray)
+
+    renderHSView(highScoresArray)
+}

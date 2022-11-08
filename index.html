@@ -9,7 +9,7 @@
 </head>
 <body>
     <header>
-        <a id="highscores" href="">View Highscores</a>
+        <a id="highscores" href="#">View Highscores</a>
         <span id="time"></span>
     </header>
 
@@ -24,11 +24,15 @@
 
             <button id="start-button">Start Quiz</button>
         </section>
+
+        <!--This is the card that the questions print to-->
         <section class="questions-card" id="questions-screen">
             <h2 id="questions"></h2>
             <ol id="selectable-answers"></ol>
             <p id="right-wrong-display"></p>
         </section>
+
+        <!--This is the endgame highscores submit section-->
         <section class="highscores-card" id="highscores-screen">
             <h2 id="start-again">All Done!!</h2>
             <p id="finalScoreWritten"></p>
@@ -37,6 +41,13 @@
                 <input type="text" placeholder="Initials" name="highscore-list" id="highscore-list" >
             </form>
             <ul id="highscore-ul"></ul>
+        </section>
+
+        <!--This is to view just the highscores and not the endgame screen-->
+        <section class="highscores-view" id="highscores-view-id">
+            <h3 class="highscores-view-hdr" id="highscores-view-hdr"></h3> 
+            <button id="play-game-from-hs">Back to game</button>
+            <ul id="highscore-ul-view"></ul>
         </section>
     </main>
 
